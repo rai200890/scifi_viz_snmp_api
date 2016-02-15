@@ -25,10 +25,8 @@ Vagrant.configure(2) do |config|
 
   #config.vm.network "forwarded_port", guest: 5000, host: 5000, host_ip: "localhost", guest_ip: "localhost"
   #config.vm.network "forwarded_port", guest: 3000, host: 3000, host_ip: "localhost", guest_ip: "localhost"
-  
-  config.vm.network "forwarded_port", guest: 161, host: 161, host_ip: "localhost", guest_ip: "localhost"
-  config.vm.network "forwarded_port", guest: 162, host: 162, host_ip: "localhost", guest_ip: "localhost"
-  config.vm.network "forwarded_port", guest: 3001, host: 3001, host_ip: "localhost", guest_ip: "localhost"
+
+  config.vm.network "forwarded_port", guest: 3001, host: 3001
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -71,7 +69,7 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", path: "install_ruby.sh", privileged: false
-   config.vm.provision "shell", path: "install_snmp_agent.sh" 
+   #config.vm.provision "shell", path: "install_snmp_agent.sh 
 # config.vm.provision "shell", inline: <<-SHELL
   #   sudo apt-get update
   #   sudo apt-get install -y apache2

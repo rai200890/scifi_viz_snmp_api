@@ -6,3 +6,4 @@ gem "activemodel"
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'byebug'
+gem 'puma'

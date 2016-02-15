@@ -1,30 +1,40 @@
 require 'bundler'
-require_relative "models/snmp_status_client"
-
 Bundler.require :default
 
-require 'dotenv'
+require_relative "models/snmp_status_client"
+
 Dotenv.load
+configure { set :server, :puma }
+
+  def valid_token? token
+    ENV['API_TOKEN'] == token
+  end
 
   get '/snmp/get' do
-    content_type :json
+    unless valid_token? params[:token]
+      status 401
+      return
+    end
     snmp_status = SNMPStatusClient.get(host: params[:host],
      community: params[:community], port: params[:port],
-      version: params[:version], token: params[:token])
+      version: params[:version])
     if snmp_status.errors.any?
-      status 404
+      status 422
     else
       json snmp_status.response
     end
   end
 
   get '/snmp/search' do
-    content_type :json
+    unless valid_token? params[:token]
+      status 401
+      return
+    end
     snmp_status = SNMPStatusClient.search(host: params[:host],
      community: params[:community], port: params[:port],
       version: params[:version], fields: params[:fields])
     if snmp_status.errors.any?
-      json snmp_status.errors.full_messages, status: :not_found
+      status 422
     else
       json snmp_status.response
     end
