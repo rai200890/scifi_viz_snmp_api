@@ -21,6 +21,13 @@ class SNMPStatusClient
   end
 
   def self.get params = {}
+    unless ENV['API_TOKEN'] == params[:token]
+      client = self.new params
+      client.errors.add(:base, "Invalid api key")
+      params.delete(:token)
+      return client
+    end
+    params.delete(:token)
     client = self.new params
     SNMP::Manager.open(client.manager_options) do |manager|
       begin
