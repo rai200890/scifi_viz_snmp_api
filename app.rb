@@ -1,13 +1,18 @@
 require 'bundler'
 require_relative "models/snmp_status_client"
+
 Bundler.require :default
+
+require 'dotenv'
+Dotenv.load
+
   get '/snmp/get' do
     content_type :json
     snmp_status = SNMPStatusClient.get(host: params[:host],
      community: params[:community], port: params[:port],
-      version: params[:version])
+      version: params[:version], token: params[:token])
     if snmp_status.errors.any?
-      json snmp_status.errors.full_messages, status: :not_found
+      status 404
     else
       json snmp_status.response
     end
@@ -25,8 +30,8 @@ Bundler.require :default
     end
   end
 
-  set :bind, '0.0.0.0'
-  set :port, 3001
+  set :bind, ENV['BIND']
+  set :port, ENV['PORT']
 
   #   mock_object = {
   #   syslocation: {
