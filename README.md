@@ -9,6 +9,10 @@ Bundler gem should be installed in the global gemset for this version
 
 ### Install RVM and Bundler
 ```shell
+sudo apt-get install -y curl
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+curl -sSL https://get.rvm.io | bash -s stable#install rvm latest stable version
+source ~/.rvm/scripts/rvm #load rvm
 rvm install 2.3.0 #install ruby 2.3.0
 rvm use 2.3.0@global #select global gemset
 gem install bundler  #install bundler in this gemset
