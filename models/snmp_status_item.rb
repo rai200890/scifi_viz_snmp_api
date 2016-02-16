@@ -1,4 +1,3 @@
-require 'snmp'
 require 'active_model'
 class SNMPStatusItem
 include ActiveModel::Serialization

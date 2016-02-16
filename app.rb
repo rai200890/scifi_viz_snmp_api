@@ -1,20 +1,22 @@
-require 'bundler'
-Bundler.require :default
+require_relative "models/init"
 
-require_relative "models/snmp_status_client"
+class SNMPApi < Sinatra::Application
 
-Dotenv.load
-configure { set :server, :puma }
+  configure do
+     set :server, :puma
+     set :bind, ENV['BIND']
+     set :port, ENV['PORT']
+   end
 
   def valid_token? token
     ENV['API_TOKEN'] == token
   end
 
+  before do
+    halt 401 unless valid_token? params[:token]
+  end
+
   get '/snmp/get' do
-    unless valid_token? params[:token]
-      status 401
-      return
-    end
     snmp_status = SNMPStatusClient.get(host: params[:host],
      community: params[:community], port: params[:port],
       version: params[:version])
@@ -26,10 +28,6 @@ configure { set :server, :puma }
   end
 
   get '/snmp/search' do
-    unless valid_token? params[:token]
-      status 401
-      return
-    end
     snmp_status = SNMPStatusClient.search(host: params[:host],
      community: params[:community], port: params[:port],
       version: params[:version], fields: params[:fields])
@@ -39,9 +37,7 @@ configure { set :server, :puma }
       json snmp_status.response
     end
   end
-
-  set :bind, ENV['BIND']
-  set :port, ENV['PORT']
+end
 
   #   mock_object = {
   #   syslocation: {

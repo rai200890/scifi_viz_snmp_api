@@ -1,5 +1,5 @@
 require 'active_model'
-require_relative 'snmp_status'
+require 'snmp'
 class SNMPStatusClient
   include ActiveModel::Model
   attr_accessor :host, :community, :port, :version, :mib_modules, :fields, :response
