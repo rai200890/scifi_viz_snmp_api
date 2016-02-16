@@ -49,7 +49,7 @@ Please change API_TOKEN to secure your api
 ##Run app
 
 ```shell
-  ruby app.rb #run server at http://0.0.0.0:3001
+  rackup #run server at http://0.0.0.0:3001
 ```
 
 ## Endpoints:
