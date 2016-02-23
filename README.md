@@ -1,13 +1,17 @@
 # wifi_uff_location_snmp_api
  SNMP NMS JSON API
 
+You can install requirements on your machine or boot a VM using Vagrant
+
 ##Install on your machine
 
 You should have [RVM](https://rvm.io/) with ruby 2.3.0 installed on your machine
 
 Bundler gem should be installed in the global gemset for this version
 
-### Install RVM and Bundler
+### Ubuntu
+
+#### Install RVM and Bundler
 ```shell
 sudo apt-get install -y curl
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
@@ -18,9 +22,27 @@ rvm use 2.3.0@global #select global gemset
 gem install bundler  #install bundler in this gemset
 ```
 
-### Install project's dependencies
+#### Install project's dependencies
 ```shell
-rvm use 2.3.0@wifi_uff_location_snmp_api --create #create project's gemset
+rvm use 2.3.0@wifi_uff_location_snmp_api --create #create project's gemset, only if necessary
+bundle install #install project's dependencies in this gemset
+```
+
+### CentOS 6.5
+
+#### Install RVM and Bundler
+```shell
+yum install -y curl
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+curl -sSL https://get.rvm.io | bash -s stable
+source ~/.rvm/scripts/rvm
+rvm install 2.3.0 #install ruby 2.3.0
+rvm use 2.3.0@global #select global gemset
+gem install bundler  #install bundler in this gemset
+```
+#### Install project's dependencies
+```shell
+rvm use 2.3.0@wifi_uff_location_snmp_api --create #create project's gemset, only if necessary
 bundle install #install project's dependencies in this gemset
 ```
 
@@ -53,7 +75,7 @@ Please change API_TOKEN to secure your api
 ##Run app
 
 ```shell
-  rackup #run server at http://0.0.0.0:3001
+  rackup -o 0.0.0.0 -p 3001 #run server at http://0.0.0.0:3001
 ```
 
 ## Endpoints:
