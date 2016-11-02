@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'active_model'
 class SNMPStatus
   include ActiveModel::Serialization
@@ -5,14 +6,13 @@ class SNMPStatus
 
   attr_accessor :syslocation, :channel, :power
 
-    def attributes
-      {'syslocation' => syslocation, 'channel' => channel, 'power' => power}
-    end
+  def attributes
+    { 'syslocation' => syslocation, 'channel' => channel, 'power' => power }
+  end
 
-  def initialize params = {}
+  def initialize(params = {})
     @syslocation = SNMPStatusItem.new(params[:syslocation])
     @channel = SNMPStatusItem.new(params[:channel])
     @power = SNMPStatusItem.new(params[:power])
   end
-
 end
