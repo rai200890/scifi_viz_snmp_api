@@ -16,6 +16,8 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'byebug'
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -101,3 +103,18 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+
+require 'rack/test'
+require 'rspec'
+
+ENV['RACK_ENV'] = 'test'
+
+require File.expand_path '../../app.rb', __FILE__
+
+module RSpecMixin
+  include Rack::Test::Methods
+  def app() SNMPApi end
+end
+
+RSpec.configure { |c| c.include RSpecMixin }

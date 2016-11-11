@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "sinatra/json"
+require 'sinatra'
 require_relative 'models/init'
 
 class SNMPApi < Sinatra::Application
@@ -16,21 +18,11 @@ class SNMPApi < Sinatra::Application
     halt 401 unless valid_token? params[:token]
   end
 
-  get '/snmp/get' do
+  get '/snmp_status/:host' do
+    content_type :json
     snmp_status = SNMPStatusClient.get(host: params[:host],
                                        community: params[:community], port: params[:port],
-                                       version: params[:version])
-    if snmp_status.errors.any?
-      status 422
-    else
-      json snmp_status.response
-    end
-  end
-
-  get '/snmp/search' do
-    snmp_status = SNMPStatusClient.search(host: params[:host],
-                                          community: params[:community], port: params[:port],
-                                          version: params[:version], fields: params[:fields])
+                                       version: params[:version], fields: params[:fields])
     if snmp_status.errors.any?
       status 422
     else

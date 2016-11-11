@@ -26,20 +26,11 @@ class SNMPStatusClient
     SNMP::Manager.open(client.manager_options) do |manager|
       begin
         response = manager.get(client.fields).varbind_list
-        parsed_response = { syslocation: response[0], channel: response[1], power: response[2] }
-        client.response = SNMPStatus.new(parsed_response)
-      rescue Exception => e
-        client.errors.add(:base, e.message)
-      end
-    end
-    client
-  end
-
-  def self.search(params = {})
-    client = new params
-    SNMP::Manager.open(client.manager_options) do |manager|
-      begin
-        client.response = manager.get(client.fields).varbind_list
+        client.response = response.map do |item|
+          oid = item.oid.join('.')
+          value = item.value == SNMP::NoSuchObject ? nil : item.value.to_s
+          { oid: item.oid, value: value, name: item.name }
+        end
       rescue Exception => e
         client.errors.add(:base, e.message)
       end
