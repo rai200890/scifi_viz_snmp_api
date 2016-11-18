@@ -1,2 +1,3 @@
 .vagrant/*
 .env
+.byebug_history
