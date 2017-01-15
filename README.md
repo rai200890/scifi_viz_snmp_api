@@ -1,4 +1,4 @@
-# wifi_uff_location_snmp_api
+# scifi_viz_api
  SNMP NMS JSON API
 
 You can install requirements on your machine or boot a VM using Vagrant
@@ -44,24 +44,6 @@ gem install bundler  #install bundler in this gemset
 ```shell
 rvm use 2.3.0@wifi_uff_location_snmp_api --create #create project's gemset, only if necessary
 bundle install #install project's dependencies in this gemset
-```
-
-##Boot Vagrant machine
-
-Make sure you have Git, VirtualBox and Vagrant installed on your machine.
-
-```shell
-  sudo apt-get install git virtualbox vagrant
-```
-OR install latest [Virtualbox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html) packages.
-
-```shell
-vagrant up #provision machine
-vagrant ssh # connect to the machine
-cd /vagrant #enter synced folder(where Vagrantfile is located)
-bundle install #install project's dependencies
-exit #disconnect from ssh
-vagrant halt #shut down machine
 ```
 
 ## Create config file
