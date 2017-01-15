@@ -1,8 +1,6 @@
 # scifi_viz_api
  SNMP NMS JSON API
 
-You can install requirements on your machine or boot a VM using Vagrant
-
 ##Install on your machine
 
 You should have [RVM](https://rvm.io/) with ruby 2.3.0 installed on your machine
