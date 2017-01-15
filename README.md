@@ -1,5 +1,5 @@
-# scifi_viz_api
- SNMP NMS JSON API
+# wifi_uff_location_snmp_api
+ SCIFI VIZ SNMP API
 
 ##Install on your machine
 
